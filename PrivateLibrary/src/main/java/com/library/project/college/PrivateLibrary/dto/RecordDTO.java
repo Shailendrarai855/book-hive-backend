@@ -17,4 +17,6 @@ public class RecordDTO {
     private Long adminId;
     private String bookId;
     private LocalDateTime issueDate;
+    private LocalDate returnDate;
+    private Long returnedBy;
 }

@@ -7,9 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 @Getter
@@ -18,22 +17,21 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Entity
 public class BookEntity {
-//    private static Integer currentId = 0;
-    private static String PREFIX = "BOOK-";
 
+    private static String PREFIX = "BOOK-";
+    private static final String CHARACTERS = "0123456789";
+    private static final SecureRandom random = new SecureRandom();
     @Id
     private String bookId;
 
     @PrePersist
-    public void generateId() {
-        LocalDateTime now = LocalDateTime.now(); // Use LocalDateTime for date and time
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd"); // Date format
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss"); // Time format
-
-        String formattedDate = now.format(dateFormatter); // Format the date
-        String formattedTime = now.format(timeFormatter); // Format the time
-
-        this.bookId = PREFIX + formattedDate + formattedTime; // Generate the bookId
+    public  void generatePassword() {
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < 14; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            password.append(CHARACTERS.charAt(index));
+        }
+        this.bookId = PREFIX+password;
     }
 
     private String title;

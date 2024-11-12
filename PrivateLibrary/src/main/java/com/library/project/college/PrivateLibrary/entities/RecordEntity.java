@@ -18,7 +18,7 @@ public class RecordEntity {
     private  Long id;
 
     @ManyToOne
-    @JoinColumn(name = "managedBy" ,referencedColumnName = "adminId")
+    @JoinColumn(name = "issuedBy" ,referencedColumnName = "adminId")
     private AdminEntity admin;
 
     @ManyToOne
@@ -28,6 +28,8 @@ public class RecordEntity {
     @ManyToOne
     @JoinColumn(name = "bookId",referencedColumnName = "bookId")
     private BookEntity book;
+
+    private Long returnedBy;
 
     private LocalDateTime issueDate;
     private int fine;

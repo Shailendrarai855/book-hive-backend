@@ -159,19 +159,16 @@ public class AddBookService {
                 throw new ResourceNotFoundException("issue Record not Found");
 
         RecordEntity record1 = record.get();
-//        System.out.println("fdgjdfbgjbdf");
+
         int fine = (int) ChronoUnit.DAYS.between(record1.getIssueDate().toLocalDate(), LocalDate.now()) - 30;
         fine = Math.max(fine, 0);
-//         set book is available
-        BookEntity book = bookRepository.findById(bookId).get();
-        BookEntity boo1= bookRepository.save(book);
-        System.out.println(boo1.getAvailable());
 
+        BookEntity book = bookRepository.findById(bookId).get();
         book.setAvailable(true);
-        BookEntity boo= bookRepository.save(book);
-        System.out.println(boo.getAvailable());
-//        save return date and fine in Record
+        bookRepository.save(book);
+
         record1.setReturnDate(LocalDate.now());
+        record1.setReturnedBy(returnBookDTO.getAdminId());
         record1.setFine(fine);
         recordRepository.save(record1);
         return ResponseDTO.builder()

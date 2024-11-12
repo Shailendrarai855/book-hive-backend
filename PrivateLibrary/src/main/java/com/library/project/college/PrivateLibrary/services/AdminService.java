@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +98,13 @@ public class AdminService {
 
         emailService.sendMail(to,subject,body);
         return recordDTO;
+    }
+
+    public List<RecordDTO> getMemberBookDetails(String memberId) {
+        MemberEntity memberEntity = memberRepository.findById(memberId).get();
+        List<RecordEntity> records = recordRepository.findByMember(memberEntity);
+        return records.stream()
+                .map(book->modelMapper.map(book,RecordDTO.class))
+                .toList();
     }
 }
