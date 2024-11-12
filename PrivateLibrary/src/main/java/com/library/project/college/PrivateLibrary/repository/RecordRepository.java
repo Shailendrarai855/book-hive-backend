@@ -27,4 +27,6 @@ public interface RecordRepository  extends JpaRepository<RecordEntity,Long> {
     List<RecordEntity> findRecordsBetweenDates(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
 
+//    @Query("SELECT b FROM Book b WHERE b.memberId = :memberId")
+    List<RecordEntity> findByMember(MemberEntity memberId);
 }

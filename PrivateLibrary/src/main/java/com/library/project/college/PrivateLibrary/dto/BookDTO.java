@@ -48,4 +48,5 @@ public class BookDTO {
     private int totalBook;
     private int availableBook;
     private PublisherDTO publisher;
+    private int count;
 }

@@ -48,7 +48,10 @@ public class MemberService {
 
     public ResponseDTO deActivateMember(String memberId) {
         MemberEntity getMember = memberRepository.findById(memberId).get();
-        getMember.setIsActive(false);
+        if(getMember.getIsActive())
+            getMember.setIsActive(false);
+        else
+            getMember.setIsActive(true);
         memberRepository.save(getMember);
         return  ResponseDTO.builder()
                 .message("Member Deactivated")

@@ -56,15 +56,18 @@ public class BookService {
     public BookDTO addNewBook(@Valid BookDTO bookDTO, String publisherId) {
         PublisherEntity publisher = publisherRepository.findById(publisherId)
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid publisher ID: " + publisherId));
+        System.out.println(1);
 
-        BookEntity newBook = convertToEntity(bookDTO);
-        String title = bookDTO.getTitle().toLowerCase();
-        newBook.setTitle(title);
-        newBook.setPublisher(publisher);
-        newBook.setAvailable(true);
-        BookEntity savedBook = bookRepository.save(newBook);
-        publisher.getMyBooks().add(newBook);
-        return convertToDTO(savedBook);
+        for (int i = 0 ; i < bookDTO.getCount(); i++) {
+            BookEntity newBook = convertToEntity(bookDTO);
+            String title = bookDTO.getTitle().toLowerCase();
+            newBook.setTitle(title);
+            newBook.setPublisher(publisher);
+            newBook.setAvailable(true);
+            BookEntity savedBook = bookRepository.save(newBook);
+            publisher.getMyBooks().add(newBook);
+        }
+        return bookDTO;
     }
 
     public List<BookDTO> getAllBooks() {

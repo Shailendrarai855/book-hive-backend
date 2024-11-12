@@ -163,11 +163,7 @@ public class AdminController {
             ResponseDTO response = bookService.issueBook(recordDTO);
             return ResponseEntity.ok(response);
     }
-    @GetMapping("/getMemberRecord/{memberId}")
-    public ResponseEntity<MemberDTO> getMemberDetails(@PathVariable String memberId) {
-        MemberDTO member = memberService.getMemberDetails(memberId);
-        return ResponseEntity.ok(member);
-    }
+
 
     @GetMapping("/getDueRecord")
     public ResponseEntity<List<RecordDTO>> getDueRecord() {
@@ -182,6 +178,17 @@ public class AdminController {
     @PostMapping("/dueMail")
     public ResponseEntity<RecordDTO> sendDueMail(@RequestBody RecordDTO recordDTO) {
         return ResponseEntity.ok(adminService.sendDueMail(recordDTO));
+    }
+
+    @GetMapping("/getMemberRecord/{memberId}")
+    public ResponseEntity<MemberDTO> getMemberDetails(@PathVariable String memberId) {
+        MemberDTO member = memberService.getMemberDetails(memberId);
+        return ResponseEntity.ok(member);
+    }
+
+    @GetMapping("/getMemberBookRecord/{memberId}")
+    public ResponseEntity<List<RecordDTO>> getMemberBookDetails(@PathVariable String memberId){
+        return ResponseEntity.ok(adminService.getMemberBookDetails(memberId));
     }
 
 
