@@ -17,5 +17,5 @@ public class ReturnBookDTO {
 
     @NotNull(message = "please enter book id")
     private String bookId;
-    private Long adminId;
+    private String adminId;
 }

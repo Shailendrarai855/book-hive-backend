@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class RecordDTO {
     private String memberId;
-    private Long adminId;
+    private String adminId;
     private String bookId;
     private LocalDateTime issueDate;
     private LocalDate returnDate;
-    private Long returnedBy;
+    private String returnedBy;
 }

@@ -96,16 +96,23 @@ public class AddBookService {
     }
 
 
-    public ResponseDTO issueBookToMember(String memberId , Long adminId, String bookId){
+    public ResponseDTO issueBookToMember(String memberId , String adminId, String bookId){
+
             MemberEntity member = memberRepository.findById(memberId).get();
             BookEntity book = bookRepository.findById(bookId).get();
+            System.out.println(book.getAvailable());
+            book.setAvailable(false);
+
+            bookRepository.save(book);
+        System.out.println(book.getAvailable());
             Optional<RequestBookEntity> resp = requestBookRepository.findByBook(book);
             if (resp.isEmpty())
                 throw new ResourceNotFoundException("Record not found");
             RequestBookEntity    request = resp.get();
                 requestBookRepository.deleteByRequestId(request.getRequestId());
-                System.out.println(request.getRequestId());
+
                 AdminEntity admin = adminRepository.findById(adminId).get();
+
                 RecordEntity record = RecordEntity.builder()
                         .member(member)
                         .book(book)

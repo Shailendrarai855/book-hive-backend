@@ -66,7 +66,7 @@ public class AdminController {
     }
 
     @PostMapping("/{adminId}/approveMember/{registrationId}")
-    public ResponseEntity<ResponseDTO> approveMemberRequest(@PathVariable String registrationId , @PathVariable Long adminId){
+    public ResponseEntity<ResponseDTO> approveMemberRequest(@PathVariable String registrationId , @PathVariable String adminId){
        ResponseDTO approvedMember = memberRegistrationService.approvedMemberRequests(registrationId,adminId);
        return ResponseEntity.ok(approvedMember);
     }
@@ -138,7 +138,7 @@ public class AdminController {
 
 //    request Booked
     @PostMapping("/issueBook/{memberId}/{adminId}/{bookId}")
-    public ResponseEntity<ResponseDTO> issueBook(@PathVariable String memberId , @PathVariable Long adminId , @PathVariable String bookId){
+    public ResponseEntity<ResponseDTO> issueBook(@PathVariable String memberId , @PathVariable String adminId , @PathVariable String bookId){
         ResponseDTO response = addBookService.issueBookToMember(memberId,adminId,bookId);
         return  ResponseEntity.ok(response);
     }
