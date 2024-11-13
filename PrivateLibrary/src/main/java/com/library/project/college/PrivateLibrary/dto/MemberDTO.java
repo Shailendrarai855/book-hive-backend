@@ -26,7 +26,7 @@ public class MemberDTO {
     private String password;
     @Pattern(regexp = "^\\d{10}$", message = "Contact number must be 10 digits")
     private String contactNo;
-    private Long adminId;
+    private String adminId;
     private  Boolean isActive;
 
 }

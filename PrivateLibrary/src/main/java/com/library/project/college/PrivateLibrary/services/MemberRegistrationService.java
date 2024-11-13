@@ -87,7 +87,7 @@ public class MemberRegistrationService {
     }
 
 
-    public ResponseDTO approvedMemberRequests(String registrationId, Long adminId) {
+    public ResponseDTO approvedMemberRequests(String registrationId, String adminId) {
 
         MemberRegistrationEntity requestMember = memberRegistrationRepository.findById(registrationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Registration ID not found: "+ registrationId));
@@ -130,7 +130,21 @@ public class MemberRegistrationService {
 
     // Reject a member registration request
     public ResponseDTO  rejectMemberRequest(String registrationId) {
-            memberRegistrationRepository.deleteById(registrationId);
+            MemberRegistrationEntity member = memberRegistrationRepository.findById(registrationId).get();
+            String to = member.getEmail();
+            String userName = member.getName();
+            String subject = "Library Membership Request Rejected";
+            String body = "Dear " + userName + ",\n\n" +
+                    "We regret to inform you that we are unable to approve your request to become a member of our library at this time. Unfortunately, certain unforeseen circumstances prevent us from proceeding with your membership.\n\n" +
+                    "Membership Details:\n" +
+                    "Registration ID: " + registrationId + "\n\n" +
+                    "If you have any questions or would like further assistance, please feel free to reach out to us. We apologize for any inconvenience this may have caused.\n\n" +
+                    "Thank you for your interest in our library and for your understanding.\n\n" +
+                    "Best regards,\n" +
+                    "Library Management Team";
+        memberRegistrationRepository.deleteById(registrationId);
+        System.out.println("hjjbjbf");
+        emailService.sendMail(to,subject,body);
         return  ResponseDTO.builder()
                 .message("request deleted")
                 .build();

@@ -29,7 +29,7 @@ public class RecordEntity {
     @JoinColumn(name = "bookId",referencedColumnName = "bookId")
     private BookEntity book;
 
-    private Long returnedBy;
+    private String returnedBy;
 
     private LocalDateTime issueDate;
     private int fine;
